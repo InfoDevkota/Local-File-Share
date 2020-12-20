@@ -6,13 +6,18 @@ No kind of security implemented, thus use with in trusted network.
 ## How to use
 
 - clone the repo.
-- run the repo
+- nevigate inside the project directory
+- Install Dependencies ``` -> ```
+ ```npm install```
+- run the project ``` -> ```
+ ```npm start``` 
 
 check for your network IP.
 
 ```
 ifconfig
 ```
+
 
 then share you network IP:5010
 
@@ -29,3 +34,8 @@ I cannot find my pendrive to transfer the file from my another machine. Thus Her
 - Take a quick snap from phone and pull it to PC.
 - File from one machine to another.
 - (8).rotate(90);
+
+## Dependencies
+- express
+- ejs
+- multer

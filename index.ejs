@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const count = urlParams.get('count');
+        // console.log(success, count);
+    </script>
+</head>
+
+<body >
+    <div id="uploadSuccess" style="float: right; padding: 20px; background: greenyellow; color: black; display: none;">
+
+    </div>
+    <div style="height: calc(100vh - 20px); display: flex; flex-direction: column;">
+        <h1>Local File Share</h1>
+        <div>
+            <h2>Upload</h2>
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <input type="file" name="files" id="" multiple>
+                <button type="submit">Upload</button>
+            </form>
+            <hr>
+
+        </div>
+        <h2>Download</h2>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+            <% let colors = ['9aa4ff', 'ff8289' ]; %>
+            <% for (var i = 0; i < files.length; i++ ) { %>
+                <div style="margin: 3px; padding: 5px; border-radius: 5px; background: #<%= colors[i % 2]%>;">
+                    <a href="contents/<%= files[i] %>" download>
+                        <%= files[i] %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+        <div style="flex:1;"></div>
+        <div>
+            <strike>Buy me a Coffee</strike> <a href="https://www.bloggernepal.com">Visit my Blog</a>
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+
+    </div>
+
+    <script>
+        if (success) {
+            document.getElementById("uploadSuccess").innerText = count + " Image Uploaded.";
+            document.getElementById("uploadSuccess").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("uploadSuccess").style.display = "none";
+                window.location.href = "/";
+            }, 4000)
+        }
+    </script>
+</body>
+
+</html>

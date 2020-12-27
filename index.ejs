@@ -22,7 +22,7 @@
         <div>
             <h2>Upload</h2>
             <form action="/" method="POST" enctype="multipart/form-data">
-                <input type="file" name="files" id="" multiple>
+                <input type="file" name="files" id="uploadFile" multiple>
                 <button type="submit">Upload</button>
             </form>
             <hr>
@@ -50,7 +50,7 @@
 
     <script>
         if (success) {
-            document.getElementById("uploadSuccess").innerText = count + " Image Uploaded.";
+            document.getElementById("uploadSuccess").innerText = count + " File Uploaded.";
             document.getElementById("uploadSuccess").style.display = "block";
             setTimeout(() => {
                 document.getElementById("uploadSuccess").style.display = "none";

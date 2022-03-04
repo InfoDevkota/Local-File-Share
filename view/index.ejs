@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local File Share</title>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const count = urlParams.get('count');
+        // console.log(success, count);
+    </script>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column;background-color: #9BB7D4;  
+    position:relative; width: 100%;">
+        <div style=" display: flex;flex-direction: column;justify-content: center;overflow: hidden; width: 100%;">
+            <div style="text-align: center; display:block; position:relative;width: 100%;">
+                <div
+                    style="position: fixed;color:white; display:block; background-color: #0072B5; width: 98.7%; margin-right: 30px;">
+                    <div style="margin:2px;">
+                        <h1>𝕷𝖔𝖈𝖆𝖑 𝕱𝖎𝖑𝖊 𝕾𝖍𝖆𝖗𝖊</h1>
+                    </div>
+                    <div style="text-align: left;">
+                        <button id="qrcode" onclick="showQRCode();" style=" background-color: #E9897E
+
+                        ; cursor: pointer;
+                    border: none;
+                    color: white;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    margin-right:10px;
+                    font-size: 12px;">QR-Code</button>
+                    </div>
+                    <div id="uploadSuccess"
+                        style="float: right; padding: 20px; background: greenyellow; color: black; display: none;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-content: space-between;">
+
+                        <div style="text-align: right;">
+                            <!-- <h2>Upload</h2> -->
+                            <form action="/" method="POST" enctype="multipart/form-data">
+                                <button id="chooseFile" style="
+                    background-color: #4CAF50;
+                    text-align: center;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    border-radius: 20px;
+                    margin:20px;
+                    font-size: 16px;" onclick="startUpload()">
+                                    <input type="file" name="files" id="uploadFile" multiple>
+                                </button>
+
+                                <button id="upload" type="submit" style=" background-color: #4CAF50;
+                    border: none;
+                    color: white;
+                    padding: 15px 32px;
+                    cursor: pointer;
+                    text-align: center;
+                    text-decoration: none;
+                    display: none;
+                    border-radius: 20px;
+                    margin:10px;
+                    font-size: 16px;">Upload</button>
+                            </form>
+
+                            <button id="cancel" type="cancel" onclick="cancel();" style=" background-color: red;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display:none;
+                    border-radius: 20px;
+                    margin:10px;
+                    font-size: 16px;">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 215px;overflow: hidden;">
+                <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+                    <% let colors=['9aa4ff', 'ff8289' ]; %>
+                        <% for (var i=0; i < files.length; i++ ) { %>
+                            <div
+                                style="margin: 3px; padding: 5px; border-radius: 5px; background: #<%= colors[i % 2]%>;">
+                                <div style="display: flex;flex-direction: row;justify-content: center;">
+                                    <img style=" width: 150px;height: 150px; overflow: hidden;"
+                                        src="<%=ipAddress%>/public-contents/<%= files[i] %>" alt="<%= files[i] %>">
+                                </div>
+                                <div style="display: flex;flex-direction: row;justify-content: center;">
+                                    <a href="public-contents/<%= files[i] %>" download>
+                                        Download
+                                    </a>
+                                </div>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+        <div id="qrcodeDiv" style=" width: 100%;height: 100%;
+            display:none;
+            position: fixed;
+            top:50%;
+            left:50%;
+            z-index: 100;
+            ">
+            <img src=<%=qrCode%> alt="QR Code Image">
+        </div>
+    </div>
+    <div>
+        <strike>Buy me a Coffee</strike> <a href="https://www.bloggernepal.com">Visit my Blog</a>
+    </div>
+    <script>
+
+        function cancel() {
+            console.log('here in cancel')
+            // document.getElementById('upload').style.display = "none";
+            // document.getElementById('cancel').style.display = "none";
+            window.location.href = "/";
+        };
+
+        function startUpload() {
+            console.log("here in startUpload")
+            document.getElementById('upload').style.display = "inline-block";
+            document.getElementById('cancel').style.display = "inline-block";
+        };
+
+        function showQRCode() {
+            console.log("show qrCode")
+            if (document.getElementById('qrcodeDiv').style.display == "none") {
+                document.getElementById('qrcodeDiv').style.display = "block";
+                document.getElementById('qrcode').innerHTML = "QR Hide";
+
+            }
+            else {
+                document.getElementById('qrcodeDiv').style.display = "block";
+                document.getElementById('qrcodeDiv').style.display = "none";
+                document.getElementById('qrcode').innerHTML = "QR-Code";
+
+
+            }
+
+        };
+
+        if (success) {
+            document.getElementById("uploadSuccess").innerText = count + " File Uploaded.";
+            document.getElementById("uploadSuccess").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("uploadSuccess").style.display = "none";
+                window.location.href = "/";
+            }, 4000)
+            document.getElementById('upload').style.display = "none";
+            document.getElementById('cancel').style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
